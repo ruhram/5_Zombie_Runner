@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] float range = 100f;
     [SerializeField] float damage = 30f;
     [SerializeField] ParticleSystem muzzleFlash;
+    [SerializeField] GameObject hitEffect;
     // Update is called once per frame
     void Update()
     {
@@ -35,6 +36,7 @@ public class Weapon : MonoBehaviour
         Physics.Raycast(FPSCamera.transform.position, FPSCamera.transform.forward, out hit, range);
         if (Physics.Raycast(FPSCamera.transform.position, FPSCamera.transform.forward, out hit, range))
         {
+            CreateHitImpact(hit);
             Debug.Log("I hit " + hit.transform.name);
             EnemyHealth target = hit.transform.GetComponent<EnemyHealth>();
             if (target == null) { return; }
@@ -45,5 +47,11 @@ public class Weapon : MonoBehaviour
         {
             return;
         }
+    }
+
+    private void CreateHitImpact(RaycastHit hit)
+    {
+        GameObject impact = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+        Destroy(impact, .1f);
     }
 }
