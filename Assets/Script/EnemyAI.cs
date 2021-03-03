@@ -46,11 +46,14 @@ public class EnemyAI : MonoBehaviour
 
     private void chaseTarget()
     {
+        GetComponent<Animator>().SetBool("Attack", false);
+        GetComponent<Animator>().SetTrigger("Move");
         navMeshAgent.SetDestination(target.position);
     }
 
     private void AttackTarget()
     {
+        GetComponent<Animator>().SetBool("Attack", true);
         print("Player has been destroyed");
     }
 
