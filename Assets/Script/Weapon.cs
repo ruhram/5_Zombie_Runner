@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] Camera FPSCamera;
     [SerializeField] float range = 100f;
     [SerializeField] float damage = 30f;
+    [SerializeField] ParticleSystem muzzleFlash;
     // Update is called once per frame
     void Update()
     {
@@ -18,9 +20,20 @@ public class Weapon : MonoBehaviour
 
     private void Shoot()
     {
+        PlayMuzzleFlash();
+        ProcessRaycast();
+    }
+
+    private void PlayMuzzleFlash()
+    {
+        muzzleFlash.Play();
+    }
+
+    private void ProcessRaycast()
+    {
         RaycastHit hit;
         Physics.Raycast(FPSCamera.transform.position, FPSCamera.transform.forward, out hit, range);
-        if(Physics.Raycast(FPSCamera.transform.position, FPSCamera.transform.forward, out hit, range))
+        if (Physics.Raycast(FPSCamera.transform.position, FPSCamera.transform.forward, out hit, range))
         {
             Debug.Log("I hit " + hit.transform.name);
             EnemyHealth target = hit.transform.GetComponent<EnemyHealth>();
@@ -32,6 +45,5 @@ public class Weapon : MonoBehaviour
         {
             return;
         }
-        
     }
 }
