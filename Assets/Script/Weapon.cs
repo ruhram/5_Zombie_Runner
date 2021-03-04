@@ -14,6 +14,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] float timeBetweenShoot = 0.5f;
 
     bool canShoot = true;
+
+    private void OnEnable()
+    {
+        canShoot = true;
+    }
     // Update is called once per frame
     void Update()
     {
