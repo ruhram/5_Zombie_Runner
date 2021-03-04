@@ -11,7 +11,8 @@ public class PlayerHealth : MonoBehaviour
         HitPoint -= damage;
         if (HitPoint <= 0)
         {
-            print("You Dead");
+
+            GetComponent<DeathHandler>().HandleDeath();
         }
     }
 }
